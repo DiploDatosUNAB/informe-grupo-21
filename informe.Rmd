@@ -4,33 +4,72 @@ author: "nombres"
 output: html_document
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # Cargar los paquetes necesarios acá
+# Cargar el paquete readr
+library(readr)
+
+# Leer el archivo vinos.csv
+vinos <- read_csv("datos/vinos.csv")
+
 ```
 
-
 ## Introducción
+Los datos analizados corresponden a reseñas de vinos publicadas en la revista WineEnthusiast. Estas reseñas abarcan un período de tiempo específico y proporcionan información valiosa sobre diversos aspectos de los vinos, como su origen, variedad, puntuación, precio y otros detalles relevantes.
 
+Los datos fueron obtenidos de una adaptación del conjunto de datos original disponible en Kaggle, el cual ha sido traducido y modificado para su análisis. 
+El objetivo de estos datos es permitir el estudio y análisis de las características de los vinos, así como explorar posibles relaciones entre variables como la puntuación, el precio, el país de origen y la variedad. Estos datos son de interés tanto para amantes del vino como para profesionales del sector vitivinícola, ya que proporcionan una visión general de la calidad, diversidad y distribución geográfica de los vinos reseñados.
 
+En resumen, los datos son una recopilación de reseñas de vinos provenientes de la revista WineEnthusiast, abarcando un período de tiempo específico y brindando información detallada sobre diferentes características de los vinos analizados. Son una fuente rica y relevante para el estudio y análisis del mundo del vino.
 
 ## Exploración de los datos
 
-
 ```{r}
 # Código para cargar o leer los datos
+# Mostrar las primeras filas del conjunto de datos
+head(vinos)
+
+# Obtener la cantidad de observaciones y variables
+observaciones <- nrow(vinos)
+variables <- ncol(vinos)
+
+# Mostrar la cantidad de observaciones y variables
+observaciones
+variables
+
 ```
-
-
+El conjunto de datos "vinos.csv" tiene un total de observaciones 129971 y 10 variables.
 
 ```{r}
 # Cödigo de R acá 
 # Agregá más bloques según sea necesario
+# Variable "puntos"
+# Calcular el valor medio y desviación estándar de la variable "puntos"
+media_puntos <- mean(vinos$puntos)
+desvio_puntos <- sd(vinos$puntos)
+
+# Mostrar el valor medio y desviación estándar de la variable "puntos"
+media_puntos
+desvio_puntos
+
+```
+```{r}
+# Calcular el valor medio y desviación estándar de la variable "precio"
+media_precio <- mean(vinos$precio)
+desvio_precio <- sd(vinos$precio)
+
+# Mostrar el valor medio y desviación estándar de la variable "precio"
+media_precio
+desvio_precio
+
 ```
 
 
 
 ## Hipótesis
+¿Existe una relación entre la puntuación de un vino y su precio? Se podría explorar si los vinos con puntuaciones más altas tienden a tener precios más elevados, o si hay alguna tendencia particular en la relación entre estas dos variables.
 
+¿Cuáles son los países con la mayor cantidad de vinos en el conjunto de datos? Se podría analizar la distribución de los vinos según el país de origen y determinar cuáles son los países más representados en el conjunto.
 
+¿Cuál es la variedad de uva más común en los vinos del conjunto de datos? Se podría investigar la frecuencia de las diferentes variedades de uva presentes en los vinos y determinar cuál es la más prevalente.
