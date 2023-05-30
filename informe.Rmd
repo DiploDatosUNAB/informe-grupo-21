@@ -68,7 +68,20 @@ desvio_precio
 
 
 ## Hipótesis
+¿Existe una relación entre la acidez y el nivel de alcohol en los vinos? Se podría analizar si existe alguna correlación entre la acidez y el nivel de alcohol en los vinos del conjunto de datos. Se podría investigar si los vinos con niveles más altos de alcohol tienden a tener una acidez más baja, o si hay alguna otra relación notable entre estas dos características.
+
 ¿Existe una relación entre la puntuación de un vino y su precio? Se podría explorar si los vinos con puntuaciones más altas tienden a tener precios más elevados, o si hay alguna tendencia particular en la relación entre estas dos variables.
+
+
+```{r}
+library(ggplot2)
+
+ggplot(data = vinos, aes(x = precio, y = puntos)) +
+  geom_point() +
+  labs(x = "Precio", y = "puntos") +
+  ggtitle("Relación entre Puntuacion y Precio de los Vinos")
+```
+
 
 ¿Cuáles son los países con la mayor cantidad de vinos en el conjunto de datos? Se podría analizar la distribución de los vinos según el país de origen y determinar cuáles son los países más representados en el conjunto.
 
