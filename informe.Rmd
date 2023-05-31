@@ -84,5 +84,27 @@ ggplot(data = vinos, aes(x = precio, y = puntos)) +
 
 
 ¿Cuáles son los países con la mayor cantidad de vinos en el conjunto de datos? Se podría analizar la distribución de los vinos según el país de origen y determinar cuáles son los países más representados en el conjunto.
+```{r}
+library(ggplot2)
+
+# Calcular la cantidad de vinos por país y almacenar los resultados en un objeto llamado "conteo_paises"
+
+conteo_paises <- table(vinos$pais)
+conteo_paises 
+
+# Crear un dataframe con los datos de conteo de países
+# datos_paises <- data.frame(pais = names(conteo_paises), cantidad = as.numeric(conteo_paises))
+top_paises <- head(names(sort(conteo_paises, decreasing = TRUE)), 10)
+vinos_top <- vinos[vinos$pais %in% top_paises, ]
+
+
+ggplot(data = data.frame(pais = vinos_top$pais), aes(x = pais)) +
+  geom_bar(fill = "steelblue") +
+  labs(x = "Paísesaaa", y = "Cantidad de Vinos") +
+  ggtitle("Top 10 Países que Consumen Vinos")
+
+
+```
+
 
 ¿Cuál es la variedad de uva más común en los vinos del conjunto de datos? Se podría investigar la frecuencia de las diferentes variedades de uva presentes en los vinos y determinar cuál es la más prevalente.
