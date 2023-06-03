@@ -9,6 +9,9 @@ knitr::opts_chunk$set(echo = TRUE)
 # Cargar los paquetes necesarios acá
 # Cargar el paquete readr
 library(readr)
+library(datos)
+library(dplyr)
+library(ggplot2)
 
 # Leer el archivo vinos.csv
 vinos <- read_csv("datos/vinos.csv")
@@ -50,8 +53,8 @@ media_puntos <- mean(vinos$puntos)
 desvio_puntos <- sd(vinos$puntos)
 
 # Mostrar el valor medio y desviación estándar de la variable "puntos"
-media_puntos
-desvio_puntos
+media_puntos  # Media de la variable puntos.
+desvio_puntos #Desvio estandar de la variable puntos.
 
 ```
 ```{r}
@@ -59,13 +62,21 @@ desvio_puntos
 media_precio <- mean(vinos$precio)
 desvio_precio <- sd(vinos$precio)
 
-# Mostrar el valor medio y desviación estándar de la variable "precio"
-media_precio
-desvio_precio
-
 ```
 
+```{r}
 
+# Filtrar vinos de un país específico (por ejemplo, Argentina)
+vinos_argentina <- vinos %>%
+  filter(pais == "Argentina")
+
+# Obtener el precio promedio por país, ignorando los valores faltantes
+precio_promedio_pais <- vinos %>%
+  group_by(pais) %>%
+  summarize(precio_promedio = mean(precio, na.rm = TRUE))
+
+
+```
 
 ## Hipótesis
 ¿Existe una relación entre la acidez y el nivel de alcohol en los vinos? Se podría analizar si existe alguna correlación entre la acidez y el nivel de alcohol en los vinos del conjunto de datos. Se podría investigar si los vinos con niveles más altos de alcohol tienden a tener una acidez más baja, o si hay alguna otra relación notable entre estas dos características.
@@ -74,8 +85,6 @@ desvio_precio
 
 
 ```{r}
-library(ggplot2)
-
 ggplot(data = vinos, aes(x = precio, y = puntos)) +
   geom_point() +
   labs(x = "Precio", y = "puntos") +
@@ -85,7 +94,6 @@ ggplot(data = vinos, aes(x = precio, y = puntos)) +
 
 ¿Cuáles son los países con la mayor cantidad de vinos en el conjunto de datos? Se podría analizar la distribución de los vinos según el país de origen y determinar cuáles son los países más representados en el conjunto.
 ```{r}
-library(ggplot2)
 
 # Calcular la cantidad de vinos por país y almacenar los resultados en un objeto llamado "conteo_paises"
 
@@ -93,7 +101,7 @@ conteo_paises <- table(vinos$pais)
 conteo_paises 
 
 # Crear un dataframe con los datos de conteo de países
-# datos_paises <- data.frame(pais = names(conteo_paises), cantidad = as.numeric(conteo_paises))
+datos_paises <- data.frame(pais = names(conteo_paises), cantidad = as.numeric(conteo_paises))
 top_paises <- head(names(sort(conteo_paises, decreasing = TRUE)), 10)
 vinos_top <- vinos[vinos$pais %in% top_paises, ]
 
@@ -103,33 +111,32 @@ ggplot(data = data.frame(pais = vinos_top$pais), aes(x = pais)) +
   labs(x = "Paísesaaa", y = "Cantidad de Vinos") +
   ggtitle("Top 10 Países que Consumen Vinos")
 
-
 ```
 
 
 ¿Cuál es la variedad de uva más común en los vinos del conjunto de datos? Se podría investigar la frecuencia de las diferentes variedades de uva presentes en los vinos y determinar cuál es la más prevalente.
 
 ```{r}
-library(ggplot2)
 
 # Calcular la frecuencia de las variedades de uva
 frecuencia_variedades <- table(vinos$variedad)
 
 # Convertir la tabla de frecuencias en un dataframe
-# df_variedades <- data.frame(variedad = names(frecuencia_variedades),
-                           # frecuencia = as.numeric(frecuencia_variedades))
+  df_variedades <- data.frame(variedad = names(frecuencia_variedades),
+                           frecuencia = as.numeric(frecuencia_variedades))
 
 # Ordenar las variedades de uva por frecuencia descendente
-# df_variedades <- df_variedades[order(df_variedades$frecuencia, decreasing = TRUE), ]
+  df_variedades <- df_variedades[order(df_variedades$frecuencia, decreasing = TRUE), ]
 
 # Graficar las frecuencias de las variedades de uva
-# ggplot(data = df_variedades, aes(x = reorder(variedad, -frecuencia), y = frecuencia)) +
-#  geom_bar(stat = "identity", fill = "steelblue") +
-#  labs(x = "Variedad de Uva", y = "Frecuencia") +
-#  ggtitle("Variedades de Uva más Comunes en los Vinos")
-# Seleccionar las 10 variedades de uva con mayor frecuencia
+  #ggplot(data = df_variedades, aes(x = reorder(variedad, -frecuencia), y = frecuencia)) +
+  #geom_bar(stat = "identity", fill = "steelblue") +
+  #labs(x = "Variedad de Uva", y = "Frecuencia") +
+  #ggtitle("Variedades de Uva más Comunes en los Vinos")
 
-top_3_variedades <- df_variedades[1:3, ]
+  
+  # Seleccionar las 3 variedades de uva con mayor frecuencia
+  top_3_variedades <- df_variedades[1:3,]
 
 # Ordenar las variedades de uva por frecuencia ascendente
 top_3_variedades <- top_3_variedades[order(top_3_variedades$frecuencia), ]
@@ -138,10 +145,10 @@ top_3_variedades <- top_3_variedades[order(top_3_variedades$frecuencia), ]
 df_variedades$variedad <- factor(df_variedades$variedad, levels = top_3_variedades$variedad)
 
 # Graficar las frecuencias de las 3 variedades de uva más frecuentes
-ggplot(data = na.omit(df_variedades), aes(x = variedad, y = frecuencia)) +
+  ggplot(data = na.omit(df_variedades), aes(x = variedad, y = frecuencia)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   labs(x = "Variedad de Uva", y = "Frecuencia") +
-  ggtitle("Top 5(five) Variedades de Uva más Frecuentes")
+  ggtitle("Top 3 Variedades de Uvas más Frecuentes")
 
 
 ```
