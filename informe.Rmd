@@ -19,17 +19,16 @@ vinos <- read_csv("datos/vinos.csv")
 ```
 
 ## Introducción
+
 Los datos analizados corresponden a reseñas de vinos publicadas en la revista WineEnthusiast. Estas reseñas abarcan un período de tiempo específico y proporcionan información valiosa sobre diversos aspectos de los vinos, como su origen, variedad, puntuación, precio y otros detalles relevantes.
 
-Los datos fueron obtenidos de una adaptación del conjunto de datos original disponible en Kaggle, el cual ha sido traducido y modificado para su análisis. 
-El objetivo de estos datos es permitir el estudio y análisis de las características de los vinos, así como explorar posibles relaciones entre variables como la puntuación, el precio, el país de origen y la variedad. Estos datos son de interés tanto para amantes del vino como para profesionales del sector vitivinícola, ya que proporcionan una visión general de la calidad, diversidad y distribución geográfica de los vinos reseñados.
+Los datos fueron obtenidos de una adaptación del conjunto de datos original disponible en Kaggle, el cual ha sido traducido y modificado para su análisis. El objetivo de estos datos es permitir el estudio y análisis de las características de los vinos, así como explorar posibles relaciones entre variables como la puntuación, el precio, el país de origen y la variedad. Estos datos son de interés tanto para amantes del vino como para profesionales del sector vitivinícola, ya que proporcionan una visión general de la calidad, diversidad y distribución geográfica de los vinos reseñados.
 
 En resumen, los datos son una recopilación de reseñas de vinos provenientes de la revista WineEnthusiast, abarcando un período de tiempo específico y brindando información detallada sobre diferentes características de los vinos analizados. Son una fuente rica y relevante para el estudio y análisis del mundo del vino.
 
 ## Exploración de los datos
 
 ```{r}
-# Código para cargar o leer los datos
 # Mostrar las primeras filas del conjunto de datos
 head(vinos)
 
@@ -42,7 +41,10 @@ observaciones
 variables
 
 ```
-El conjunto de datos "vinos.csv" tiene un total de observaciones 129971 y 10 variables.
+
+***El conjunto de datos "vinos.csv" tiene un total de observaciones 129971 y 10 variables.***
+
+### [**Calculamos el valor medio(promedio) y la desviación estandar de la variable "Puntos"**]{.underline}
 
 ```{r}
 # Cödigo de R acá 
@@ -57,6 +59,11 @@ media_puntos  # Media de la variable puntos.
 desvio_puntos #Desvio estandar de la variable puntos.
 
 ```
+
+## [**1)Filtramos los vinos proveniente de Argentina.**]{.underline}
+
+## [**2) Luego obtenmos el precio promedio por "pais"**]{.underline}
+
 ```{r}
 
 # Filtrar vinos de un país específico (por ejemplo, Argentina)
@@ -75,7 +82,6 @@ precio_promedio_pais <- vinos %>%
 
 ¿Existe una relación entre la puntuación de un vino y su precio? Se podría explorar si los vinos con puntuaciones más altas tienden a tener precios más elevados, o si hay alguna tendencia particular en la relación entre estas dos variables.
 
-
 ```{r}
 ggplot(data = vinos, aes(x = precio, y = puntos)) +
   geom_point() +
@@ -83,8 +89,8 @@ ggplot(data = vinos, aes(x = precio, y = puntos)) +
   ggtitle("Relación entre Puntuacion y Precio de los Vinos")
 ```
 
-
 ¿Cuáles son los países con la mayor cantidad de vinos en el conjunto de datos? Se podría analizar la distribución de los vinos según el país de origen y determinar cuáles son los países más representados en el conjunto.
+
 ```{r}
 
 # Calcular la cantidad de vinos por país y almacenar los resultados en un objeto llamado "conteo_paises"
@@ -104,7 +110,6 @@ ggplot(data = data.frame(pais = vinos_top$pais), aes(x = pais)) +
   ggtitle("Top 10 Países que Consumen Vinos")
 
 ```
-
 
 ¿Cuál es la variedad de uva más común en los vinos del conjunto de datos? Se podría investigar la frecuencia de las diferentes variedades de uva presentes en los vinos y determinar cuál es la más prevalente.
 
@@ -144,6 +149,3 @@ df_variedades$variedad <- factor(df_variedades$variedad, levels = top_3_variedad
 
 
 ```
-
-
-
