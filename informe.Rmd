@@ -7,7 +7,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # Cargar los paquetes necesarios acá
-# Cargar el paquete readr
+# Cargamos los paquete readr,datos,dplyr y ggplot2
 library(readr)
 library(datos)
 library(dplyr)
@@ -58,13 +58,6 @@ desvio_puntos #Desvio estandar de la variable puntos.
 
 ```
 ```{r}
-# Calcular el valor medio y desviación estándar de la variable "precio"
-media_precio <- mean(vinos$precio)
-desvio_precio <- sd(vinos$precio)
-
-```
-
-```{r}
 
 # Filtrar vinos de un país específico (por ejemplo, Argentina)
 vinos_argentina <- vinos %>%
@@ -79,7 +72,6 @@ precio_promedio_pais <- vinos %>%
 ```
 
 ## Hipótesis
-¿Existe una relación entre la acidez y el nivel de alcohol en los vinos? Se podría analizar si existe alguna correlación entre la acidez y el nivel de alcohol en los vinos del conjunto de datos. Se podría investigar si los vinos con niveles más altos de alcohol tienden a tener una acidez más baja, o si hay alguna otra relación notable entre estas dos características.
 
 ¿Existe una relación entre la puntuación de un vino y su precio? Se podría explorar si los vinos con puntuaciones más altas tienden a tener precios más elevados, o si hay alguna tendencia particular en la relación entre estas dos variables.
 

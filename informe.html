@@ -379,8 +379,7 @@ para el estudio y análisis del mundo del vino.</p>
 </div>
 <div id="exploración-de-los-datos" class="section level2">
 <h2>Exploración de los datos</h2>
-<pre class="r"><code># Código para cargar o leer los datos
-# Mostrar las primeras filas del conjunto de datos
+<pre class="r"><code># Mostrar las primeras filas del conjunto de datos
 head(vinos)</code></pre>
 <pre><code>## # A tibble: 6 x 10
 ##   pais           nombre puntos precio provincia region_1 region_2 variedad vina 
@@ -401,8 +400,11 @@ observaciones</code></pre>
 <pre><code>## [1] 129971</code></pre>
 <pre class="r"><code>variables</code></pre>
 <pre><code>## [1] 10</code></pre>
-<p>El conjunto de datos “vinos.csv” tiene un total de observaciones
-129971 y 10 variables.</p>
+<p><strong><em>El conjunto de datos “vinos.csv” tiene un total de
+observaciones 129971 y 10 variables.</em></strong></p>
+<div id="calculamos-el-valor-mediopromedio-y-la-desviación-estandat-de-la-variable-puntos" class="section level3">
+<h3><u><strong>Calculamos el valor medio(promedio) y la desviación
+estandat de la variable “Puntos”</strong></u></h3>
 <pre class="r"><code># Cödigo de R acá 
 # Agregá más bloques según sea necesario
 # Variable &quot;puntos&quot;
@@ -415,9 +417,6 @@ media_puntos  # Media de la variable puntos.</code></pre>
 <pre><code>## [1] 88.44714</code></pre>
 <pre class="r"><code>desvio_puntos #Desvio estandar de la variable puntos.</code></pre>
 <pre><code>## [1] 3.03973</code></pre>
-<pre class="r"><code># Calcular el valor medio y desviación estándar de la variable &quot;precio&quot;
-media_precio &lt;- mean(vinos$precio)
-desvio_precio &lt;- sd(vinos$precio)</code></pre>
 <pre class="r"><code># Filtrar vinos de un país específico (por ejemplo, Argentina)
 vinos_argentina &lt;- vinos %&gt;%
   filter(pais == &quot;Argentina&quot;)
@@ -427,14 +426,9 @@ precio_promedio_pais &lt;- vinos %&gt;%
   group_by(pais) %&gt;%
   summarize(precio_promedio = mean(precio, na.rm = TRUE))</code></pre>
 </div>
+</div>
 <div id="hipótesis" class="section level2">
 <h2>Hipótesis</h2>
-<p>¿Existe una relación entre la acidez y el nivel de alcohol en los
-vinos? Se podría analizar si existe alguna correlación entre la acidez y
-el nivel de alcohol en los vinos del conjunto de datos. Se podría
-investigar si los vinos con niveles más altos de alcohol tienden a tener
-una acidez más baja, o si hay alguna otra relación notable entre estas
-dos características.</p>
 <p>¿Existe una relación entre la puntuación de un vino y su precio? Se
 podría explorar si los vinos con puntuaciones más altas tienden a tener
 precios más elevados, o si hay alguna tendencia particular en la
