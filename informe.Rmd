@@ -100,7 +100,6 @@ ggplot(data = vinos, aes(x = precio, y = puntos)) +
 
 
 
-
 ¿Cuáles son los países con la mayor cantidad de vinos en el conjunto de datos? Se podría analizar la distribución de los vinos según el país de origen y determinar cuáles son los países más representados en el conjunto.
 
 ```{r}
@@ -154,7 +153,7 @@ ggplot(top_paises, aes(x = pais, y = n, fill = pais)) +
 
 ```
 
-**Nota: Podemos observar claramente y analizar en el grafico de barra "Top 10 Paises que consumen vinos", que los 3 paises que se despegan altamente del resto en relación a la cantidad de reseñas en esta base de datos. son los paises de:**
+**Nota: Podemos observar claramente y analizar en el grafico de barra "Top 10 Paises de cantidad de reseñas de vinos", que los 3 paises que se despegan altamente del resto en relación a la cantidad de reseñas en esta base de datos. son los paises de:**
 
 1.  **Estados Unidos: 54.504**
 
