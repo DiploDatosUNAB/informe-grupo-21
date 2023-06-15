@@ -110,14 +110,39 @@ ggplot(data = data.frame(pais = vinos_top$pais), aes(x = pais)) +
   ggtitle("Top 10 Países que Consumen Vinos")
 
 ```
+```{r}
+gdatos_paises <- vinos %>%
+  group_by(pais) %>%
+  summarise(n = n())
+
+top_paises <- datos_paises %>%
+  arrange(desc(n)) %>%
+  slice_max(n = 10, order_by = n)
+
+vinos_top <- vinos %>%
+  filter(pais %in% top_paises$pais)
+
+
+top_paises <- datos_paises %>%
+  arrange(desc(n)) %>%
+  slice_max(n = 10, order_by = n)
+
+ggplot(top_paises, aes(x = pais, y = n, fill = pais)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Países", y = "Cantidad de Vinos", title = "Top 10 Países con Mayor Cantidad de Vinos") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = rainbow(length(top_paises$pais)))
+
+
+```
 
 **Nota: Podemos observar claramente y analizar en el grafico de barra "Top 10 Paises que consumen vinos", que los 3 paises que se despegan altamente del resto en relación al consumo de vinos son los paises de:**
 
-1.   **Estados Unidos: 54.504**
+1.  **Estados Unidos: 54.504**
 
-2.   **Francia: 22.504**
+2.  **Francia: 22.504**
 
-3.   **Italia: 19.540**
+3.  **Italia: 19.540**
 
 ¿Cuál es la variedad de uva más común en los vinos del conjunto de datos? Se podría investigar la frecuencia de las diferentes variedades de uva presentes en los vinos y determinar cuál es la más prevalente.
 
