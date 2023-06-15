@@ -62,7 +62,7 @@ desvio_puntos #Desvio estandar de la variable puntos.
 
 ## [**1)Filtramos los vinos proveniente de Argentina.**]{.underline}
 
-## [**2) Luego obtenmos el precio promedio por "pais"**]{.underline}
+## [**2) Luego obtenemos el precio promedio por "pais"**]{.underline}
 
 ```{r}
 
@@ -88,6 +88,14 @@ ggplot(data = vinos, aes(x = precio, y = puntos)) +
   labs(x = "Precio", y = "puntos") +
   ggtitle("Relación entre Puntuacion y Precio de los Vinos")
 ```
+## Correccion fedback, me olvide de analiza y sacar una conclusion en el TP2. Aqui va el analisis y la conclusión.
+
+***Nota: Observando el gráfico, podemos notar que no existe una relación lineal clara entre la puntuación y el precio de los vinos. Hay una dispersión amplia de puntos en todas las regiones del gráfico, lo que indica que no hay una tendencia definida de que los vinos con precios más altos tengan necesariamente una puntuación más alta, ni viceversa.***
+
+***Esto sugiere que otros factores, como la variedad de uva, la región de origen o las prácticas de producción, podrían estar influyendo en la puntuación de los vinos además del precio. Es importante considerar que el precio de un vino puede estar determinado por múltiples factores, como la calidad de las uvas, el método de producción, la reputación de la bodega, entre otros.***
+
+***En conclusión, según el gráfico de dispersión, no se observa una relación lineal directa entre la puntuación y el precio de los vinos en el conjunto de datos analizado.***
+
 
 ¿Cuáles son los países con la mayor cantidad de vinos en el conjunto de datos? Se podría analizar la distribución de los vinos según el país de origen y determinar cuáles son los países más representados en el conjunto.
 
@@ -103,15 +111,21 @@ datos_paises <- data.frame(pais = names(conteo_paises), cantidad = as.numeric(co
 top_paises <- head(names(sort(conteo_paises, decreasing = TRUE)), 10)
 vinos_top <- vinos[vinos$pais %in% top_paises, ]
 
-
-ggplot(data = data.frame(pais = vinos_top$pais), aes(x = pais)) +
+## se corrigio, conforme al feedback del TP2..."No hace falta que armes un data.frame así. Acá podés simplemente pasarle vinos_top."
+ggplot(data = vinos_top, aes(x = pais)) +
   geom_bar(fill = "steelblue") +
   labs(x = "Países", y = "Cantidad de Vinos") +
-  ggtitle("Top 10 Países que Consumen Vinos")
+  ggtitle("Top 10 Países con Mayor Cantidad de Vinos")
+
 
 ```
+
 ```{r}
-gdatos_paises <- vinos %>%
+## Elio Conforme a tu feedback TP2:
+## "Esto se podría hacer más fácil con un group_by(pais) y summarise(n = n()). Para seleccionar el top 10, podés usar arrange y head o directamente slice_max()"
+## Procedi a calcular de la siguiente manera.
+
+datos_paises <- vinos %>%
   group_by(pais) %>%
   summarise(n = n())
 
@@ -129,14 +143,14 @@ top_paises <- datos_paises %>%
 
 ggplot(top_paises, aes(x = pais, y = n, fill = pais)) +
   geom_bar(stat = "identity") +
-  labs(x = "Países", y = "Cantidad de Vinos", title = "Top 10 Países con Mayor Cantidad de Vinos") +
+  labs(x = "Países", y = "Cantidad de Vinos", title = "Top 10 Países con Mayor Cantidad de reseñas de Vinos") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_manual(values = rainbow(length(top_paises$pais)))
 
 
 ```
 
-**Nota: Podemos observar claramente y analizar en el grafico de barra "Top 10 Paises que consumen vinos", que los 3 paises que se despegan altamente del resto en relación al consumo de vinos son los paises de:**
+**Nota: Podemos observar claramente y analizar en el grafico de barra "Top 10 Paises que consumen vinos", que los 3 paises que se despegan altamente del resto en relación a la cantidad de reseñas en esta base de datos. son los paises de:**
 
 1.  **Estados Unidos: 54.504**
 
@@ -190,3 +204,18 @@ df_variedades$variedad <- factor(df_variedades$variedad, levels = top_3_variedad
 2.  ***Chardonnay: 11.753***
 
 3.  ***CabernetbSauvignon: 9.472***
+
+```{r}
+## De acuerdo a corrección hecha en feedback TP2 , procedi a simplificar el codigo usando la funcion dplyr.
+df_variedades <- vinos %>%
+  count(variedad) %>%
+  arrange(desc(n)) %>%
+  mutate(variedad = factor(variedad, levels = head(variedad, 3))) %>%
+  rename(frecuencia = n)
+
+ggplot(data = na.omit(df_variedades), aes(x = variedad, y = frecuencia)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(x = "Variedad de Uva", y = "Frecuencia") +
+  ggtitle("Variedades de Uva más Comunes en los Vinos")
+
+```
