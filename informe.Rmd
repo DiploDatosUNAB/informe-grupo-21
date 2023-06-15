@@ -87,14 +87,17 @@ ggplot(data = vinos, aes(x = precio, y = puntos)) +
   geom_point() +
   labs(x = "Precio", y = "puntos") +
   ggtitle("Relación entre Puntuacion y Precio de los Vinos")
+
+## Correccion feedback, me olvide de analiza y sacar una conclusion en el TP2. Aqui va el analisis y la conclusión.
 ```
-## Correccion fedback, me olvide de analiza y sacar una conclusion en el TP2. Aqui va el analisis y la conclusión.
 
 ***Nota: Observando el gráfico, podemos notar que no existe una relación lineal clara entre la puntuación y el precio de los vinos. Hay una dispersión amplia de puntos en todas las regiones del gráfico, lo que indica que no hay una tendencia definida de que los vinos con precios más altos tengan necesariamente una puntuación más alta, ni viceversa.***
 
 ***Esto sugiere que otros factores, como la variedad de uva, la región de origen o las prácticas de producción, podrían estar influyendo en la puntuación de los vinos además del precio. Es importante considerar que el precio de un vino puede estar determinado por múltiples factores, como la calidad de las uvas, el método de producción, la reputación de la bodega, entre otros.***
 
 ***En conclusión, según el gráfico de dispersión, no se observa una relación lineal directa entre la puntuación y el precio de los vinos en el conjunto de datos analizado.***
+
+
 
 
 ¿Cuáles son los países con la mayor cantidad de vinos en el conjunto de datos? Se podría analizar la distribución de los vinos según el país de origen y determinar cuáles son los países más representados en el conjunto.
